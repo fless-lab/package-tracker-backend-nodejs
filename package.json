@@ -1,0 +1,31 @@
+{
+  "name": "Package Tracker API",
+  "version": "1.0.0",
+  "description": "Package Tracker API",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "nodejs",
+    "package tracker",
+    "tracker"
+  ],
+  "author": "Abdou-Raouf ATARMLA",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bluebird": "^3.7.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.0",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
+}
