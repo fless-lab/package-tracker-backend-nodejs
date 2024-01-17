@@ -33,7 +33,7 @@ class UserService {
                 throw new AppError("Unauthorized", 403);
             }
         } catch (error) {
-            throw new AppError(`Error updating user: ${error.message}`);
+            throw new AppError(`Error updating user: ${error.message}`,error.statusCode);
         }
     }
 
@@ -53,7 +53,7 @@ class UserService {
                 throw new AppError("Unauthorized", 403);
             }
         } catch (error) {
-            throw new AppError(`Error deleting user: ${error.message}`);
+            throw new AppError(`Error deleting user: ${error.message}`,error.statusCode);
         }
     }
 
@@ -72,8 +72,17 @@ class UserService {
                 throw new AppError("Unauthorized", 403);
             }
         } catch (error) {
-            throw new AppError(`Error fetching user: ${error.message}`);
+            throw new AppError(`Error fetching user: ${error.message}`,error.statusCode);
         }
+    }
+
+    static async getUserById(userId){
+        try {
+            const user = await UserModel.findById(userId);
+            return { success: true, user };
+          } catch (error) {
+            return { success: false, error };
+          }
     }
 
     static async getUserByUsername(username) {
@@ -100,7 +109,7 @@ class UserService {
                 throw new AppError("Unauthorized", 403);
             }
         } catch (error) {
-            throw new AppError(`Error fetching user   s: ${error.message}`);
+            throw new AppError(`Error fetching users: ${error.message}`,error.statusCode);
         }
     }
 }

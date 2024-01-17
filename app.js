@@ -12,6 +12,7 @@ redis.init();
 mongo.init();
 
 const AuthRoutes = require("./src/routes/auth.routes");
+const UserRoutes = require("./src/routes/user.routes");
 const { verifyAccessToken } = require("./utils/jwt.utils");
 
 
@@ -29,8 +30,8 @@ app.get('/', async (req, res, next) => {
 app.get('/api', verifyAccessToken, async (req, res, next) => {
   res.status(200).json({message:"Yeah you can access a protected route"})
 })
-app.use('/api/auth', AuthRoutes)
-// app.use('/auth', AuthRoutes)
+app.use('/api/auth', AuthRoutes);
+app.use('/api/user', UserRoutes);
 
 
 
