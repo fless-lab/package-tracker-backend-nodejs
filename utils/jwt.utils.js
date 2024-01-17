@@ -1,6 +1,7 @@
 const JWT = require('jsonwebtoken')
 const createError = require('http-errors')
-const redis = require("./redis.utils")
+const redis = require("./redis.utils");
+const UserService = require('../src/services/user.service');
 
 const client = redis.getClient();
 module.exports = {
@@ -23,23 +24,24 @@ module.exports = {
       })
     })
   },
-  verifyAccessToken: (req, res, next) => {
+  verifyAccessToken: async (req, res, next) => {
     if (!req.headers['authorization']) return next(createError.Unauthorized())
     const authHeader = req.headers['authorization']
     const bearerToken = authHeader.split(' ')
     const token = bearerToken[1]
-    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
-      if (err) {
-        
-        const message =
-          err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message;
-          const type = err.name;
-
-        return next(createError.Unauthorized({type,desc:message}))
-      }
-      req.payload = payload
-      next()
-    })
+    try {
+      const decoded = JWT.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      const userId = decoded.aud;
+  
+      const {user} = await UserService.getUserById(userId);
+      req.user = user;
+  
+      next();
+    } catch (err) {
+      const type = err.name;
+      const message = type === "JsonWebTokenError" ? "Unauthorized" : err.message;
+      return next(createError.Unauthorized({ type, desc: message }));
+    }
   },
   signRefreshToken: (userId) => {
     return new Promise((resolve, reject) => {
