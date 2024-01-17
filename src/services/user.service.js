@@ -1,5 +1,5 @@
 const UserModel = require("../models/user.model");
-const AppError = require("../../utils/error.utils");
+const {AppError} = require("../../utils/error.utils");
 const bcrypt = require("bcrypt");
 
 class UserService {
@@ -79,9 +79,6 @@ class UserService {
     static async getUserByUsername(username) {
         try {
             const user = await UserModel.findOne({ username });
-            if (!user) {
-                throw new AppError("User not found", 404);
-            }
             return { success: true, user };
         } catch (error) {
             throw new AppError(`Error fetching user by username: ${error.message}`);

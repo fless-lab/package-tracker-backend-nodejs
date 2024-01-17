@@ -11,8 +11,7 @@ const mongo = require("./utils/mongo.utils");
 redis.init();
 mongo.init();
 
-// const OtpRoutes = require("./domains/otp/routes/otp.routes")
-// const AuthRoutes = require("./domains/auth/routes/auth.routes")
+const AuthRoutes = require("./src/routes/auth.routes");
 const { verifyAccessToken } = require("./utils/jwt.utils");
 
 
@@ -28,9 +27,9 @@ app.get('/', async (req, res, next) => {
     res.send('Hello, welcome to Package Tracker api')
 })
 app.get('/api', verifyAccessToken, async (req, res, next) => {
-  res.send('Welcome to protected route.')
+  res.status(200).json({message:"Yeah you can access a protected route"})
 })
-// app.use('/otp', OtpRoutes)
+app.use('/api/auth', AuthRoutes)
 // app.use('/auth', AuthRoutes)
 
 

@@ -1,32 +1,32 @@
 const UserService = require("./user.service");
-const AppError = require("../../utils/error.utils");
 const {
   signAccessToken,
   signRefreshToken,
   verifyRefreshToken,
 } = require("../../utils/jwt.utils");
 const redis = require("../../utils/redis.utils");
+const { AppError } = require("../../utils/error.utils");
 const client = redis.getClient();
 
 class AuthService {
   static async register(payload) {
     try {
-      const { email, username, password } = payload;
+      const {username, password } = payload;
 
-      const { success: userExists, user: existingUser } = await UserService.getUserByUsername(username);
+      const { user: existingUser } = await UserService.getUserByUsername(username);
 
-      if (userExists) {
+      if (existingUser) {
         throw new AppError("Username already exists", 409);
       }
 
-      const { success: createSuccess, user: createdUser, error: createError } = await UserService.createUser({ email, username, password });
+      const { success: createSuccess, user: createdUser, error: createError } = await UserService.createUser({ username, password });
 
       if (!createSuccess) {
         console.error("Error creating user:", createError);
         throw createError;
       }
 
-      return { success: true, user: createdUser };
+      return { success: true };
     } catch (error) {
       return { success: false, error };
     }
