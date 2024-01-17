@@ -15,7 +15,6 @@ async function connect(uri, dbName) {
 }
 
 async function init(uri = process.env.MONGO_URI, dbName = process.env.DB_NAME) {
-    console.log("mongo params : ",uri,dbName)
   try {
     await connect(uri, dbName);
     console.info('Mongodb initialised.');
