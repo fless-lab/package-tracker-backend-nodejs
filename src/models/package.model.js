@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const packageSchema = new mongoose.Schema(
   {
+    customer: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, 
     active_delivery: { type: mongoose.Schema.Types.ObjectId, ref: "Delivery" },
     description: { type: String, required: true },
     weight: { type: Number, required: true },
