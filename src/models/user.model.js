@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { USER_TYPES } = require("../../constants");
 
 const userSchema = new mongoose.Schema(
   {
@@ -7,8 +8,8 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     role: {
       type: String,
-      enum: ["customer", "driver", "admin"],
-      default: "customer",
+      enum: Object.values(USER_TYPES),
+      default: USER_TYPES.CUSTOMER,
       required: true,
     },
   },

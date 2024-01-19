@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/user.controller");
 const { verifyAccessToken } = require("../../utils/jwt.utils");
-const checkAdminRole = require("../middlewares/must-be-admin");
+const authorizeUser = require("../middlewares/authoroized-user");
 
 router.use(verifyAccessToken);
-router.use(checkAdminRole);
+router.use(authorizeUser(["admin"]));
 
 router.post("/", UserController.createUser);
 router.put("/:id", UserController.updateUser);
