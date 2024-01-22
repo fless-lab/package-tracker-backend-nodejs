@@ -26,7 +26,7 @@ class AuthService {
         throw createError;
       }
 
-      return { success: true };
+      return { success: true, user:createdUser };
     } catch (error) {
       return { success: false, error };
     }

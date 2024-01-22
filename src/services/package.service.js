@@ -54,10 +54,10 @@ class PackageService {
       }
 
       if (user.role === 'admin') {
-        const packages = await Package.find().populate('active_delivery');
+        const packages = await Package.find().populate('active_delivery customer');
         return { success: true, packages };
       } else {
-        const packages = await Package.find({ customer: user._id }).populate('active_delivery');
+        const packages = await Package.find({ customer: user._id }).populate('active_delivery customer');
         return { success: true, packages };
       }
     } catch (error) {

@@ -12,7 +12,7 @@ const deliverySchema = new mongoose.Schema(
       lat: { type: Number },
       lng: { type: Number },
     },
-    status: { type: String, enum: Object.values(DELIVERY_STATUS), required: true },
+    status: { type: String, enum: Object.values(DELIVERY_STATUS),default:DELIVERY_STATUS.OPEN, required: true },
   },
   { timestamps: true }
 );

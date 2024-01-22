@@ -91,8 +91,9 @@ class UserController {
   static async getAllUsers(req, res) {
     try {
       const requestingUserId = req.user.id;
+      const role = req.query.role;
 
-      const { success, users, error } = await UserService.getAllUsers(requestingUserId);
+      const { success, users, error } = await UserService.getAllUsers(requestingUserId,role);
 
       if (success) {
         return res.status(200).json({ success, users });

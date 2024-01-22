@@ -153,7 +153,8 @@ class PackageController {
 function formatPackageResponse(package) {
   return {
     package_id: package._id,
-    customer_id: package.customer,
+    customer_id: package.customer.id,
+    customer:package.customer,
     active_delivery_id: package.active_delivery,
     description: package.description,
     weight: package.weight,

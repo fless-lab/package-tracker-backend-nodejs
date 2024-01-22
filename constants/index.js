@@ -1,6 +1,8 @@
 module.exports = {
     EVENT_TYPES:{
-        
+        LOCATION_CHANGED:"location_changed",
+        STATUS_CHANGED:"status_changed",
+        DELIVERY_UPDATED:"delivery_updated"
     },
     DELIVERY_STATUS:{
         OPEN:'open', 
